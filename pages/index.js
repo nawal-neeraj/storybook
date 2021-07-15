@@ -1,11 +1,34 @@
 import Head from 'next/head'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { useLoading, Audio,
+  BallTriangle,
+  Bars,
+  Circles,
+  Grid,
+  Hearts,
+  Oval,
+  Puff,
+  Rings,
+  SpinningCircles,
+  TailSpin,
+  ThreeDots, } from '@agney/react-loading';
+import {Loader} from '../src/components/Items/Loader/Loader'
 // import '../src/components/Items/Button/button.css'
 
 import { Button } from '../src/components/Items/Button/Button'
 
 export default function Home() {
+const[load, setLoad] = useState(true)
+
+  const handleLoader = () => {
+    setLoad(false)
+    setTimeout(() => {
+      setLoad(true)
+    },2000)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,10 +37,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      
-      <Button className="storybook-button storybook-button--large" label="Checks"></Button>
+      {load && (
+      <div style={{padding:20}}>
+      <Button onClick={handleLoader} className="storybook-button storybook-button--large Primary" label="Checks"></Button>
+      </div>
+      )}
+      {!load && (
+        <Loader width="100" />
+      )}
 
-      <footer className={styles.footer}>
+      {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
@@ -28,7 +57,7 @@ export default function Home() {
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
-      </footer>
+      </footer> */}
     </div>
   )
 }
